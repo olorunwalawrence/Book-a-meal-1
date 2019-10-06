@@ -1,9 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-
 /**
  * Function to load Webpack Dev Middleware is environment is development
  * @param {object} app
@@ -11,8 +5,11 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
  * @return {middleware} returns middleware
  */
 function webpackDev(app, env) {
-  if (env === 'development' || env === 'test') {
-    /* eslint-disable global-require */
+  if (env !== 'production') {
+    /* eslint-disable global-require, import/no-extraneous-dependencies */
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
     const webpackConfig = require('../../../webpack.dev.babel');
     const compiler = webpack(webpackConfig);
 
